@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { supabase } from '@/lib/supabaseClient';
 
-export default function AddModelForm({ onSuccess }: { onSuccess?: () => void }) {
+export default function AddModelForm({ onSuccess }: any) {
   const [name, setName] = useState('');
   const [position, setPosition] = useState('top');
   const [image, setImage] = useState<File | null>(null);
@@ -19,31 +19,28 @@ export default function AddModelForm({ onSuccess }: { onSuccess?: () => void }) 
     try {
       setLoading(true);
 
+      // Upload ke storage
       const filePath = `model/${position}/${Date.now()}-${image.name}`;
       const { error: uploadError } = await supabase.storage
         .from('gallery')
         .upload(filePath, image);
-
       if (uploadError) throw uploadError;
 
-      const { data: publicUrl } = supabase.storage
+      // Ambil URL publik
+      const { data: publicUrl } = supabase
+        .storage
         .from('gallery')
         .getPublicUrl(filePath);
 
+      // Simpan ke tabel model
       const { error: insertError } = await supabase.from('model').insert([
-        {
-          name,
-          position,
-          image_url: publicUrl.publicUrl,
-        },
+        { name, position, image_url: publicUrl.publicUrl },
       ]);
-
       if (insertError) throw insertError;
 
       alert('Model berhasil ditambahkan ✅');
       setName('');
       setImage(null);
-      if (onSuccess) onSuccess();
     } catch (err: any) {
       console.error(err);
       alert(`Gagal menambahkan model: ${err.message}`);
@@ -75,6 +72,7 @@ export default function AddModelForm({ onSuccess }: { onSuccess?: () => void }) 
           <option value="side">Side</option>
         </select>
       </div>
+
       <div>
         <label className="block text-sm font-medium mb-1">Upload image</label>
         <input
