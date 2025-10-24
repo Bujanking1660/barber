@@ -84,7 +84,7 @@ export default function GalleryClient({
           </button>
         )}
         <div>
-          <h2 className="text-2xl font-semibold text-accent">
+          <h1 className="text-2xl font-semibold text-accent">
             {level === "root"
               ? "Gallery"
               : level === "order"
@@ -94,7 +94,8 @@ export default function GalleryClient({
               : level === "top"
               ? "Top Haircuts"
               : "Side Haircuts"}
-          </h2>
+          </h1>
+          <p className="text-muted text-sm">Picture of art</p>
         </div>
       </div>
 

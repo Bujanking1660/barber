@@ -169,10 +169,6 @@ export default async function GalleryPage() {
 
   return (
     <section className="p-4 pb-16 min-h-screen">
-      <div className="mb-6">
-        <h1 className="text-2xl font-semibold text-accent">Gallery</h1>
-        <p className="text-muted text-sm">Picture of art</p>
-      </div>
 
       {/* Komponen client untuk navigasi dan fetching interaktif */}
       <GalleryClient hasOrder={hasOrder} hasModel={hasModel} />

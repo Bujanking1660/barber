@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import { motion, useDragControls } from "framer-motion";
-import AddModelForm from "../forms/AddModelForm";
+import { motion, useDragControls } from 'framer-motion';
+import AddModelForm from '../forms/AddModelForm';
 
 export default function AddModelSheet({ isOpen, onClose }: any) {
   const controls = useDragControls();
@@ -9,7 +9,7 @@ export default function AddModelSheet({ isOpen, onClose }: any) {
   return (
     <motion.div
       className={`fixed inset-x-0 bottom-0 z-60 mx-auto max-w-md bg-surface rounded-t-3xl shadow-lg ${
-        isOpen ? "pointer-events-auto" : "pointer-events-none"
+        isOpen ? 'pointer-events-auto' : 'pointer-events-none'
       }`}
       drag="y"
       dragControls={controls}
@@ -17,9 +17,9 @@ export default function AddModelSheet({ isOpen, onClose }: any) {
       onDragEnd={(_, info) => {
         if (info.offset.y > 100) onClose();
       }}
-      initial={{ y: "100%" }}
-      animate={{ y: isOpen ? 0 : "100%" }}
-      transition={{ type: "spring", stiffness: 300, damping: 30 }}
+      initial={{ y: '100%' }}
+      animate={{ y: isOpen ? 0 : '100%' }}
+      transition={{ type: 'spring', stiffness: 300, damping: 30 }}
     >
       {/* indikator drag */}
       <div
@@ -35,7 +35,7 @@ export default function AddModelSheet({ isOpen, onClose }: any) {
         </button>
       </div>
 
-      {/* form (isi utama) */}
+      {/* form */}
       <div className="px-6 pb-8">
         <AddModelForm onSuccess={onClose} />
       </div>
