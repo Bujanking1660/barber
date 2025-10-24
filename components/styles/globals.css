@@ -1,0 +1,24 @@
+@import "tailwindcss";
+
+@theme {
+  --color-bg: #f9f9f7;
+  --color-surface: #ffffff;
+  --color-primary: #d4af37;
+  --color-accent: #1c1c1c;
+  --color-muted: #9ca3af;
+  --color-border: #e5e7eb;
+}
+
+@layer base {
+  body {
+    font-family: "Poppins", sans-serif;
+    background-color: var(--color-bg);
+    color: var(--color-accent);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1, h2, h3 {
+    font-family: "Playfair Display", serif;
+    letter-spacing: 0.5px;
+  }
+}
