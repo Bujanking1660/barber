@@ -34,7 +34,7 @@ export default function RootLayout({
         className={`${playfair.variable} ${poppins.variable} antialiased bg-gray-100 min-h-dvh flex flex-col`}
       >
         {/* Content */}
-        <main className="flex-1 container mx-auto mt-6 px-4">
+        <main className="flex-1 container mx-auto">
           {children}
         </main>
 

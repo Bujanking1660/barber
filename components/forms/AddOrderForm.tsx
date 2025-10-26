@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { supabase } from '@/lib/supabaseClient';
 
 export default function AddOrderForm({ onSuccess }: { onSuccess: () => void }) {
-    const [name, setName] = useState('');
+    const [name, setName] = useState('-');
     const [price, setPrice] = useState<number | ''>('');
     const [top, setTop] = useState('');
     const [side, setSide] = useState('');
@@ -79,7 +79,7 @@ export default function AddOrderForm({ onSuccess }: { onSuccess: () => void }) {
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     className="w-full border-b border-foreground/40 bg-transparent p-2 outline-none"
-                    placeholder="Rizkya Gusnaldy"
+                    placeholder="-"
                 />
             </div>
 
