@@ -1,29 +1,35 @@
-export const dynamic = 'force-dynamic';
+"use client";
 
+import { useEffect, useState } from "react";
 import GalleryClient from "./GalleryClient";
-import { createServerClient } from "@/lib/supabaseServer";
+import Loader from "@/components/ui/Loader";
+import { supabase } from "@/lib/supabaseClient";
 
-export default async function GalleryPage() {
-  const supabase = createServerClient()
+export default function GalleryPage() {
+  const [loading, setLoading] = useState(true);
+  const [hasOrder, setHasOrder] = useState<boolean | null>(null);
+  const [hasModel, setHasModel] = useState<boolean | null>(null);
 
-  // Ambil data awal di server (misalnya hanya jumlah item di tiap kategori)
-  const { data: orders } = await supabase
-    .from("order")
-    .select("id")
-    .limit(1);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const { data: orders } = await supabase.from("order").select("id").limit(1);
+        const { data: models } = await supabase.from("model").select("id").limit(1);
 
-  const { data: models } = await supabase
-    .from("model")
-    .select("id")
-    .limit(1);
+        setHasOrder(!!orders?.length);
+        setHasModel(!!models?.length);
+      } finally {
+        setTimeout(() => setLoading(false), 1000); // kasih delay dikit biar loader keliatan smooth
+      }
+    };
 
-  const hasOrder = orders && orders.length > 0;
-  const hasModel = models && models.length > 0;
+    fetchData();
+  }, []);
+
+  if (loading) return <Loader />;
 
   return (
     <section className="px-5 py-8 min-h-screen bg-bg">
-
-      {/* Komponen client untuk navigasi dan fetching interaktif */}
       <GalleryClient hasOrder={hasOrder} hasModel={hasModel} />
     </section>
   );

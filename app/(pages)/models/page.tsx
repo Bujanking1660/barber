@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { supabase } from '@/lib/supabaseClient';
 import { Plus, Trash2, X, Search } from 'lucide-react';
 import AddModelSheet from '@/components/ui/AddModelSheet';
+import Loader from '@/components/ui/Loader';
 
 export default function ModelsPage() {
   const [models, setModels] = useState<any[]>([]);
@@ -11,6 +12,7 @@ export default function ModelsPage() {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
+  const [loader, setLoader] = useState(false);
 
   const fetchModels = async () => {
     setLoading(true);
@@ -45,6 +47,13 @@ export default function ModelsPage() {
       item.position?.toLowerCase().includes(query)
     );
   });
+
+  useEffect(() => {
+    const timer = setTimeout(() => setLoader(false), 2000);
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (loading) return <Loader />;
 
   return (
     <section className="min-h-screen bg-bg px-5 py-8">

@@ -22,3 +22,26 @@
     letter-spacing: 0.5px;
   }
 }
+
+/* Loader */
+@keyframes cut {
+  0% { transform: rotate(0deg) translateY(0); }
+  25% { transform: rotate(-20deg) translateY(2px); }
+  50% { transform: rotate(20deg) translateY(-2px); }
+  75% { transform: rotate(-15deg) translateY(1px); }
+  100% { transform: rotate(0deg) translateY(0); }
+}
+
+.animate-cutting {
+  animation: cut 1s ease-in-out infinite;
+  transform-origin: center;
+}
+
+@keyframes grow {
+  0%, 30% { width: 0; opacity: 0.5; }
+  100% { width: 64px; opacity: 1; }
+}
+
+.animate-hairGrow {
+  animation: grow 1.2s ease-in-out infinite alternate;
+}

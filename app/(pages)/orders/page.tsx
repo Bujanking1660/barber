@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { supabase } from '@/lib/supabaseClient';
 import { Plus, Trash2, X, Search } from 'lucide-react';
 import AddOrderSheet from '@/components/ui/AddOrderSheet';
+import Loader from '@/components/ui/Loader';
 
 export default function OrderPage() {
   const [orders, setOrders] = useState<any[]>([]);
@@ -11,6 +12,8 @@ export default function OrderPage() {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
+
+  const [loader, setLoader] = useState(false);
 
   const fetchOrders = async () => {
     setLoading(true);
@@ -64,7 +67,6 @@ export default function OrderPage() {
     }
   };
 
-  // 🔍 Filter pencarian
   const filteredOrders = orders.filter((item) => {
     const q = searchQuery.toLowerCase();
     return (
@@ -73,6 +75,13 @@ export default function OrderPage() {
       item.sideName?.toLowerCase().includes(q)
     );
   });
+
+  useEffect(() => {
+      const timer = setTimeout(() => setLoader(false), 2000);
+      return () => clearTimeout(timer);
+    }, []);
+  
+    if (loading) return <Loader />;
 
   return (
     <section className="min-h-screen bg-bg px-5 py-8">
