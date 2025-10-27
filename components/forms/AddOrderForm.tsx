@@ -87,8 +87,15 @@ export default function AddOrderForm({ onSuccess }: { onSuccess: () => void }) {
                 <label className="block text-sm font-medium mb-1">Price</label>
                 <input
                     type="number"
-                    value={price}
-                    onChange={(e) => setPrice(Number(e.target.value))}
+                    value={
+                        price === ''
+                            ? ''
+                            : Number(price).toLocaleString('id-ID') // Format dengan titik ribuan
+                    }
+                    onChange={(e) => {
+                        const rawValue = e.target.value.replace(/\D/g, ''); // hapus semua non-digit
+                        setPrice(rawValue === '' ? '' : Number(rawValue));
+                    }}
                     className="w-full border-b border-foreground/40 bg-transparent p-2 outline-none"
                     placeholder="50000"
                 />
